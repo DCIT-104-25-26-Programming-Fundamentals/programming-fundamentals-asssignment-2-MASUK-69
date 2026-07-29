@@ -71,5 +71,161 @@
 #include <iostream>
 #include <iomanip>
 #include <cmath>
+#include <limits>
 using namespace std;
+
+void displayMenu()
+{
+    cout << "============================" << endl;
+    cout << "     SIMPLE CALCULATOR" << endl;
+    cout << "============================" << endl;
+    cout << "1. Addition" << endl;
+    cout << "2. Subtraction" << endl;
+    cout << "3. Multiplication" << endl;
+    cout << "4. Division" << endl;
+    cout << "5. Modulus" << endl;
+    cout << "6. Exponentiation" << endl;
+    cout << "7. Quit" << endl;
+    cout << "Select an operation (1-7): ";
+}
+
+double add(double a, double b)
+{
+    return a + b;
+}
+
+double subtractNumbers(double a, double b)
+{
+    return a - b;
+}
+
+double multiply(double a, double b)
+{
+    return a * b;
+}
+
+bool divide(double a, double b, double& result)
+{
+    if (b == 0)
+    {
+        return false;
+    }
+    result = a / b;
+    return true;
+}
+
+bool modulus(int a, int b, int& result)
+{
+    if (b == 0)
+    {
+        return false;
+    }
+    result = a % b;
+    return true;
+}
+
+double exponentiate(double a, double b)
+{
+    return pow(a, b);
+}
+
+int main()
+{
+    bool running = true;
+
+    while (running)
+    {
+        displayMenu();
+        int choice;
+        cin >> choice;
+
+        if (cin.fail())
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Error: Please enter a number between 1 and 7." << endl;
+            cout << endl;
+            continue;
+        }
+
+        if (choice == 7)
+        {
+            cout << "Goodbye!" << endl;
+            break;
+        }
+
+        double x, y;
+        cout << "Enter first number : ";
+        cin >> x;
+        if (cin.fail())
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Error: Invalid number." << endl;
+            cout << endl;
+            continue;
+        }
+
+        cout << "Enter second number: ";
+        cin >> y;
+        if (cin.fail())
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Error: Invalid number." << endl;
+            cout << endl;
+            continue;
+        }
+
+        cout << fixed << setprecision(2);
+        switch (choice)
+        {
+            case 1:
+                cout << "Result: " << x << " + " << y << " = " << add(x, y) << endl;
+                break;
+            case 2:
+                cout << "Result: " << x << " - " << y << " = " << subtractNumbers(x, y) << endl;
+                break;
+            case 3:
+                cout << "Result: " << x << " * " << y << " = " << multiply(x, y) << endl;
+                break;
+            case 4: {
+                double result;
+                if (!divide(x, y, result))
+                {
+                    cout << "Error: Cannot divide by zero." << endl;
+                }
+                else
+                {
+                    cout << "Result: " << x << " / " << y << " = " << result << endl;
+                }
+                break;
+            }
+            case 5: {
+                int a = static_cast<int>(x);
+                int b = static_cast<int>(y);
+                int result;
+                if (!modulus(a, b, result))
+                {
+                    cout << "Error: Cannot divide by zero." << endl;
+                }
+                else
+                {
+                    cout << "Result: " << a << " % " << b << " = " << result << endl;
+                }
+                break;
+            }
+            case 6:
+                cout << "Result: " << x << " ^ " << y << " = " << exponentiate(x, y) << endl;
+                break;
+            default:
+                cout << "Error: Please enter a number between 1 and 7." << endl;
+                break;
+        }
+
+        cout << endl;
+    }
+
+    return 0;
+}
 
