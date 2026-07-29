@@ -30,10 +30,54 @@
 // - The main() function must call isPrime() and print the result.
 //
 
-// =============================================================================
-// YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in
-// =============================================================================
-
 #include <iostream>
+#include <cmath>
 using namespace std;
+
+bool isPrime(int number)
+{
+    if (number < 2)
+    {
+        return false;
+    }
+
+    if (number == 2)
+    {
+        return true;
+    }
+
+    if (number % 2 == 0)
+    {
+        return false;
+    }
+
+    int limit = static_cast<int>(sqrt(number));
+    for (int divisor = 3; divisor <= limit; divisor += 2)
+    {
+        if (number % divisor == 0)
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+int main()
+{
+    int number;
+    cout << "Enter a number: ";
+    cin >> number;
+
+    if (isPrime(number))
+    {
+        cout << number << " is a prime number." << endl;
+    }
+    else
+    {
+        cout << number << " is NOT a prime number." << endl;
+    }
+
+    return 0;
+}
 
